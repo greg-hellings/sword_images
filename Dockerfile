@@ -1,5 +1,5 @@
 # sword_modules
-FROM greghellings/sword
+FROM openshift/base-centos7
 
 # TODO: Put the maintainer name in the image metadata
 MAINTAINER Greg Hellings <greg.hellings@gmail.com>
@@ -12,11 +12,10 @@ LABEL io.k8s.description="SWORD images with pre-installed modules" \
 
 USER 0
 
-RUN mkdir -p /home/sword \
-	&& chown -R 1001:0 /usr/share/sword \
-	&& chown -R 1001:0 /home/sword \
-	&& dnf install -y sword-utils \
-	&& dnf clean all -y
+RUN yum install -y epel-release \
+	&& yum install -y sword-utils \
+	&& yum clean all -y \
+	&& chown -R 1001:0 /usr/share/sword
 
 # TODO: Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image sets io.openshift.s2i.scripts-url label that way, or update that label
 COPY ./s2i/bin/ /usr/libexec/s2i
