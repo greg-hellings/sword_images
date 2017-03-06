@@ -10,14 +10,10 @@ LABEL io.k8s.description="SWORD images with pre-installed modules" \
       io.openshift.tags="sword,modules,data-only" \
       io.openshift.s2i.scripts-url="image:////usr/libexec/s2i"
 
-RUN useradd -d /home/sword -s /bin/bash -u 1001 sword \
-    && chown -R 1001:1001 /usr/share/sword/
+RUN echo 'nothing to see'
 
 # TODO: Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image sets io.openshift.s2i.scripts-url label that way, or update that label
 COPY ./s2i/bin/ /usr/libexec/s2i
-
-# This default user is created in the openshift/base-centos7 image
-USER 1001
 
 # TODO: Set the default port for applications built using this image
 # EXPOSE 8080
