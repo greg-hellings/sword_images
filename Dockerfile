@@ -15,6 +15,10 @@ RUN echo 'nothing to see'
 # TODO: Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image sets io.openshift.s2i.scripts-url label that way, or update that label
 COPY ./s2i/bin/ /usr/libexec/s2i
 
+# Execute code as the SWORD user, created in the base SWORD image
+WORKDIR /home/sword
+USER 1001
+
 # TODO: Set the default port for applications built using this image
 # EXPOSE 8080
 
