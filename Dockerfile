@@ -9,7 +9,8 @@ LABEL io.k8s.description="SWORD images with pre-installed modules" \
       io.k8s.display-name="sword_modules" \
       io.openshift.tags="sword,modules,data-only"
 
-RUN dnf install -y sword-utils \
+RUN yum install -y epel-release \
+	&& yum install -y sword-utils \
 	&& chown -R 1001:0 /usr/share/sword \
 	&& dnf clean all -y
 
