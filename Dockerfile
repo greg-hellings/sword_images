@@ -1,5 +1,5 @@
 # sword_modules
-FROM openshift/base-centos7
+FROM fedora:latest
 
 # TODO: Put the maintainer name in the image metadata
 MAINTAINER Greg Hellings <greg.hellings@gmail.com>
@@ -7,10 +7,11 @@ MAINTAINER Greg Hellings <greg.hellings@gmail.com>
 # TODO: Set labels used in OpenShift to describe the builder image
 LABEL io.k8s.description="SWORD images with pre-installed modules" \
       io.k8s.display-name="sword_modules" \
-      io.openshift.tags="sword,modules,data-only"
+      io.openshift.tags="sword,modules,data-only" \
+      io.openshift.s2i.scripts-url="image:///usr/libexec/s2i"
 
-RUN yum install -y epel-release \
-	&& yum install -y sword-utils \
+RUN dnf install -y epel-release \
+	&& dnf install -y sword-utils \
 	&& chown -R 1001:0 /usr/share/sword \
 	&& dnf clean all -y
 
