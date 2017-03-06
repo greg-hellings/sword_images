@@ -1,0 +1,34 @@
+#!/bin/bash -xe
+
+S2I=/tmp/s2i/artifacts
+SWORD=/usr/share/sword
+
+# Restore old modules
+if [ -d "${S2I}/mods.d" ]; then
+	mv "${S2I}/mods.d" "${SWORD}"
+fi
+if [ -d "${S2I}/modules" ]; then
+	mv "${S2I}/modules" "${SWORD}"
+fi
+
+# Initialize SWORD configuration
+echo "yes" > /tmp/yes
+installmgr -init < /tmp/yes
+installmgr -sc < /tmp/yes
+
+# Install and update modules
+function mods {
+	installmgr -r "$1" < /tmp/yes
+	MODS=$(installmgr -rd "$1" | sed -E -e 's/.*\[(.*?)\].*/\1/' | sed -e '1,3d')
+	for mod in $MODS; do
+		installmgr -ri "$1" $mod < /tmp/yes;
+	done
+}
+
+mods CrossWire
+mods "CrossWire Beta"
+mods "CrossWire Wycliffe"
+mods "Bible.org"
+mods IBT
+mods Xiphos
+mods eBible.org

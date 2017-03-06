@@ -1,0 +1,13 @@
+#!/bin/bash
+
+pushd /usr/share/sword/
+# Save modules first
+if [ -d modules ]; then
+	tar cf - modules
+fi
+# Then save mods.d, since that is how the engine knows if
+# the contents are present
+if [ -d mods.d ]; then
+	tar cf - mods.d
+fi
+popd

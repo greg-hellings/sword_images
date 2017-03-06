@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cat << EOF
+This image is not intended to be used for anything other than data storage.
+EOF
