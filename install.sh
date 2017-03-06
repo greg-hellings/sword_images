@@ -15,3 +15,7 @@ installmgr -sc < /tmp/yes
 mods CrossWire
 mods "CrossWire Beta"
 mods "CrossWire Wycliffe"
+mods "Bible.org"
+mods IBT
+mods Xiphos
+mods eBible.org
