@@ -12,16 +12,16 @@ if [ -d "${S2I}/modules" ]; then
 fi
 
 # Initialize SWORD configuration
-echo "yes" > /tmp/yes
-installmgr -init < /tmp/yes
-installmgr -sc < /tmp/yes
+echo "yes" > /home/sword/yes
+installmgr -init < /home/sword/yes
+installmgr -sc < /home/sword/yes
 
 # Install and update modules
 function mods {
-	installmgr -r "$1" < /tmp/yes
+	installmgr -r "$1" < /home/sword/yes
 	MODS=$(installmgr -rd "$1" | sed -E -e 's/.*\[(.*?)\].*/\1/' | sed -e '1,3d')
 	for mod in $MODS; do
-		installmgr -ri "$1" $mod < /tmp/yes;
+		installmgr -ri "$1" $mod < /home/sword/yes;
 	done
 }
 
